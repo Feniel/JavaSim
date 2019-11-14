@@ -18,7 +18,7 @@
  * (C) 1990-2008,
  */
 
-package org.javasim.examples.basic;
+package org.javasim.examples.operations;
 
 public class Main
 {
@@ -37,7 +37,7 @@ public class Main
                 isBreaks = true;
         }
 
-        MachineShop m = new MachineShop(isBreaks);
+        Coordinator m = new Coordinator(isBreaks);
 
         m.await();
 

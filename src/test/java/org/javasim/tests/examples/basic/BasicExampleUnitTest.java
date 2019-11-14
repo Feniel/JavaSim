@@ -21,11 +21,9 @@
 package org.javasim.tests.examples.basic;
 
 import org.javasim.Simulation;
-import org.javasim.examples.basic.*;
+import org.javasim.examples.operations.*;
     
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class BasicExampleUnitTest
 {

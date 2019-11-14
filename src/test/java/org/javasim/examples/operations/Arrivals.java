@@ -18,29 +18,43 @@
  * (C) 1990-2008,
  */
 
-package org.javasim.examples.basic;
+package org.javasim.examples.operations;
 
-public class Main
+import java.io.IOException;
+
+import org.javasim.RestartException;
+import org.javasim.SimulationException;
+import org.javasim.SimulationProcess;
+import org.javasim.streams.ExponentialStream;
+
+public class Arrivals extends SimulationProcess
 {
-    public static void main (String[] args)
+    public Arrivals(double mean)
     {
-        boolean isBreaks = false;
-
-        for (int i = 0; i < args.length; i++)
-        {
-            if (args[i].equalsIgnoreCase("-help"))
-            {
-                System.out.println("Usage: Main [-breaks] [-help]");
-                System.exit(0);
-            }
-            if (args[i].equalsIgnoreCase("-breaks"))
-                isBreaks = true;
-        }
-
-        MachineShop m = new MachineShop(isBreaks);
-
-        m.await();
-
-        System.exit(0);
+        InterArrivalTime = new ExponentialStream(mean);
     }
+
+    public void run ()
+    {
+        while (!terminated())
+        {
+            try
+            {
+                hold(InterArrivalTime.getNumber());
+            }
+            catch (SimulationException e)
+            {
+            }
+            catch (RestartException e)
+            {
+            }
+            catch (IOException e)
+            {
+            }
+
+            new Job();
+        }
+    }
+
+    private ExponentialStream InterArrivalTime;
 }

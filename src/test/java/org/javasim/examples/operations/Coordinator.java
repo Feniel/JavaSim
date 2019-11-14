@@ -18,7 +18,7 @@
  * (C) 1990-2008,
  */
 
-package org.javasim.examples.basic;
+package org.javasim.examples.operations;
 
 import org.javasim.RestartException;
 import org.javasim.Simulation;
@@ -45,8 +45,11 @@ public class Coordinator extends SimulationProcess {
             Breaks B = null;
             Arrivals A = new Arrivals(8);
             Coordinator.O = new OperationRoom(8);
-            System.out.println("Coordinator-" + Thread.currentThread().getName() + ": ACTIVATING the OperationRoom");
+            Coordinator.P = new PreperationRoom(8);
+            Coordinator.R = new RecoveryRoom(8);
             Coordinator.O.activate();
+            Coordinator.P.activate();
+            Coordinator.R.activate();
 
             // activate Arrival
             System.out.println("Coordinator-" + Thread.currentThread().getName() + ": ACTIVATING an Arrivals");
@@ -59,6 +62,7 @@ public class Coordinator extends SimulationProcess {
 
             System.out.println("Starting Simulation");
             Simulation.start();
+
 
             // attempts to process 1000 jobs
             System.out.println("Looping until ProcessedJobs < 10");
@@ -74,7 +78,7 @@ public class Coordinator extends SimulationProcess {
             System.out.println("Average response time = " + (TotalResponseTime / ProcessedJobs));
             System.out.println("Probability that machine is working = " + ((MachineActiveTime - MachineFailedTime) / currentTime()));
             System.out.println("Probability that machine has failed = " + (MachineFailedTime / MachineActiveTime));
-            System.out.println("Average number of jobs present = " + (JobsInQueue / CheckFreq));
+            //System.out.println("Average number of jobs present = " + (JobsInQueue / CheckFreq));
 
             Simulation.stop();
 
@@ -96,11 +100,19 @@ public class Coordinator extends SimulationProcess {
 
     public static OperationRoom O = null;
 
+    public static PreperationRoom P = null;
+
+    public static RecoveryRoom R = null;
+
     public static ArrayList<PreperationRoom> listP = null;
 
     public static ArrayList<RecoveryRoom> listR = null;
 
-    public static Queue JobQ = new Queue();
+    public static Queue Queue1 = new Queue();
+
+    public static Queue Queue2 = new Queue();
+
+    public static Queue Queue3 = new Queue();
 
     public static double TotalResponseTime = 0.0;
 

@@ -18,29 +18,53 @@
  * (C) 1990-2008,
  */
 
-package org.javasim.examples.basic;
+package org.javasim.examples.operations;
 
-public class Main
+import org.javasim.RestartException;
+import org.javasim.Scheduler;
+import org.javasim.SimulationException;
+
+public class Job
 {
-    public static void main (String[] args)
+    public Job()
     {
-        boolean isBreaks = false;
+        boolean empty = false;
 
-        for (int i = 0; i < args.length; i++)
+        ResponseTime = 0.0;
+        ArrivalTime = Scheduler.currentTime();
+
+
+        empty = Coordinator.Queue1.isEmpty();
+        Coordinator.Queue1.enqueue(this);
+
+
+        Coordinator.TotalJobs++;
+
+        if (empty && !Coordinator.O.processing()
+                && Coordinator.O.isOperational())
         {
-            if (args[i].equalsIgnoreCase("-help"))
+            try
             {
-                System.out.println("Usage: Main [-breaks] [-help]");
-                System.exit(0);
+                Coordinator.O.activate();
             }
-            if (args[i].equalsIgnoreCase("-breaks"))
-                isBreaks = true;
+            catch (SimulationException e)
+            {
+            }
+            catch (RestartException e)
+            {
+            }
         }
-
-        MachineShop m = new MachineShop(isBreaks);
-
-        m.await();
-
-        System.exit(0);
     }
+
+    public void finished ()
+    {
+        ResponseTime = Scheduler.currentTime() - ArrivalTime;
+        Coordinator.TotalResponseTime += ResponseTime;
+    }
+
+    private double ResponseTime;
+
+    private double ArrivalTime;
+
+    double OperationTime;
 }

@@ -18,7 +18,7 @@
  * (C) 1990-2008,
  */
 
-package org.javasim.examples.basic;
+package org.javasim.examples.operations;
 
 import java.io.IOException;
 
@@ -46,22 +46,22 @@ public class Breaks extends SimulationProcess
 
                 hold(OperativeTime.getNumber());
 
-                MachineShop.M.broken();
-                MachineShop.M.cancel();
+                Coordinator.O.broken();
+                Coordinator.O.cancel();
 
-                if (!MachineShop.JobQ.isEmpty())
+                if (!Coordinator.Queue1.isEmpty())
                     interrupted_service = true;
 
                 hold(failedTime);
 
-                MachineShop.MachineFailedTime += failedTime;
-                MachineShop.M.fixed();
+                Coordinator.MachineFailedTime += failedTime;
+                Coordinator.O.fixed();
 
                 if (interrupted_service)
-                    MachineShop.M.activateAt(MachineShop.M.serviceTime()
+                    Coordinator.O.activateAt(Coordinator.O.serviceTime()
                             + currentTime());
                 else
-                    MachineShop.M.activate();
+                    Coordinator.O.activate();
 
                 interrupted_service = false;
             }

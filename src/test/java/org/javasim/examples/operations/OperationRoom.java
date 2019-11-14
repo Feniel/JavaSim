@@ -1,4 +1,4 @@
-package org.javasim.examples.basic;
+package org.javasim.examples.operations;
 
 import org.javasim.RestartException;
 import org.javasim.SimulationException;
@@ -11,6 +11,7 @@ public class OperationRoom extends SimulationProcess {
     public OperationRoom(double mean)
     {
         STime = new ExponentialStream(mean);
+        threadJobsDone = 0;
         operational = true;
         working = false;
         J = null;
@@ -24,13 +25,13 @@ public class OperationRoom extends SimulationProcess {
         {
             working = true;
 
-            while (!Coordinator.JobQ.isEmpty())
+            while (!Coordinator.Queue2.isEmpty())
             {
                 ActiveStart = currentTime();
                 Coordinator.CheckFreq++;
 
-                Coordinator.JobsInQueue += Coordinator.JobQ.queueSize();
-                J = Coordinator.JobQ.dequeue();
+                Coordinator.JobsInQueue += Coordinator.Queue2.queueSize();
+                J = Coordinator.Queue2.dequeue();
 
                 try
                 {
@@ -45,15 +46,17 @@ public class OperationRoom extends SimulationProcess {
 
                 ActiveEnd = currentTime();
                 Coordinator.MachineActiveTime += ActiveEnd - ActiveStart;
+                //increment of processedJobs
                 Coordinator.ProcessedJobs++;
-                System.out.println("OperationRoom-" + Thread.currentThread().getName() + ": Processed 1 job");
+                threadJobsDone++;
+                System.out.println("OperationRoom-" + Thread.currentThread().getName() + ": Processed 1 job (total: "+ threadJobsDone +")");
 
                 /*
                  * Introduce this new method because we usually rely upon the
                  * destructor of the object to do the work in C++.
                  */
 
-                J.finished();
+                Coordinator.Queue3.enqueue(J);
             }
 
             working = false;
@@ -105,6 +108,8 @@ public class OperationRoom extends SimulationProcess {
     private boolean operational;
 
     private boolean working;
+    
+    private int threadJobsDone;
 
     private Job J;
 }
