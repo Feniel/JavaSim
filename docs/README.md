@@ -1,3 +1,3 @@
-manual.adoc - the user manual.
+The solutions for the individual tasks are in the branches named after them.
 
-images - the files in this  directory are used within the manual so do not move (the URLs used within the doc are relative not absolute).
+The main Branch is just for maintaining the code and add helpful funktions
