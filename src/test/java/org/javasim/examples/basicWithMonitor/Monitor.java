@@ -9,11 +9,12 @@ import java.io.IOException;
 
 public class Monitor extends SimulationProcess
 {
-    public Monitor(Queue JobQ)
-    {
+    public Monitor(Queue JobQ) {
+        this.averageQueueLengths = 0;
+        this.averageUtilization = 0;
+        this.queue = JobQ;
         operational = true;
         working = false;
-        this.queue = JobQ;
     }
 
     public void run ()
@@ -23,9 +24,10 @@ public class Monitor extends SimulationProcess
         while (!terminated())
         {
             working = true;
-            System.out.println("test");
+            averageQueueLengths += queue.queueSize();
+            averageQueueLengthCounter++;
 
-            working = false;
+            averageUtilization += MachineShop.MachineActiveTime;
 
             try
             {
@@ -35,6 +37,27 @@ public class Monitor extends SimulationProcess
             {
             }
         }
+        working = false;
+    }
+
+    public void printData(){
+        System.out.println("Current time "+currentTime());
+        System.out.println("Total number of jobs present " + MachineShop.TotalJobs);
+        System.out.println("Total number of jobs processed "
+                + MachineShop.ProcessedJobs);
+        System.out.println("Total response time of " + MachineShop.TotalResponseTime);
+        System.out.println("Average response time = "
+                + (MachineShop.TotalResponseTime / MachineShop.ProcessedJobs));
+        System.out
+                .println("Probability that machine is working = "
+                        + ((MachineShop.MachineActiveTime - MachineShop.MachineFailedTime) / currentTime()));
+        System.out.println("Probability that machine has failed = "
+                + (MachineShop.MachineFailedTime / MachineShop.MachineActiveTime));
+        System.out.println("Average number of jobs present = "
+                + (MachineShop.JobsInQueue / MachineShop.CheckFreq));
+        System.out.println("-------------------");
+        System.out.println("averageQueueLengths: "+ averageQueueLengths / averageQueueLengthCounter);
+        System.out.println("averageUtilization: "+ averageUtilization / MachineShop.ProcessedJobs);
     }
 
     public void broken ()
@@ -75,7 +98,13 @@ public class Monitor extends SimulationProcess
 
     private boolean working;
 
-    private Job J;
-
     private Queue queue;
+
+    private double averageQueueLengths;
+
+    private int averageQueueLengthCounter;
+
+    private double averageUtilization;
+
+    private int averageUtilizationCounter;
 }

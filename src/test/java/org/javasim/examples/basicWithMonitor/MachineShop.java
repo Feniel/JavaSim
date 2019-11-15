@@ -56,20 +56,7 @@ public class MachineShop extends SimulationProcess
             while (MachineShop.ProcessedJobs < 1000)
                 hold(1000);
 
-            System.out.println("Current time "+currentTime());
-            System.out.println("Total number of jobs present " + TotalJobs);
-            System.out.println("Total number of jobs processed "
-                    + ProcessedJobs);
-            System.out.println("Total response time of " + TotalResponseTime);
-            System.out.println("Average response time = "
-                    + (TotalResponseTime / ProcessedJobs));
-            System.out
-                    .println("Probability that machine is working = "
-                            + ((MachineActiveTime - MachineFailedTime) / currentTime()));
-            System.out.println("Probability that machine has failed = "
-                    + (MachineFailedTime / MachineActiveTime));
-            System.out.println("Average number of jobs present = "
-                    + (JobsInQueue / CheckFreq));
+            DataMonitor.printData();
 
             Simulation.stop();
 
