@@ -1,30 +1,6 @@
-JavaSIM is an object-oriented simulation package based upon C++SIM and has been around since 1997. It provides discrete event process-based simulation similar to SIMULA's simulation class and libraries. A complete list of the capabilities provided follows:
 
-- The core of the system gives SIMULA-like simulation routines, random number generators, queueing algorithms and in the C++ original there are thread package interfaces, though for Java that's not necessary.
-- Entity and set manipulation facilities similar to SIMSET.
-- Classes allow "non-causal" events, such as interrupts, to be handled.
-- Various routines for gathering statistics, such as histogram and variance classes.
+The solution for task 4 from homework 2
 
-The system also comes with complete examples and tests which illustrate many of the issues raised in using the simulation package.
+The solution is in JavaSim/src/test/java/org/javasim/examples/basicWithMonitor
 
-Over the years C++SIM and JavaSim have been used by many commercial and academic organisations.
-
-Prior to 2007 both C++SIM and JavaSim were freely available in source and binary from Newcastle University, under the University's own licence. However, in late 2007 Newcastle University decided that everything could be released into open source under LGPL.
-
-You can find details of the releases in the https://github.com/nmcl/JavaSim/releases section as well as binary downloads for some releases.
-
-In 2015 the code was moved from Codehaus to github. All JIRAs from there were also recreated as github issues.
-
-----
-
-To build:
-
-mvn compile
-
-Run tests and create installation:
-
-mvn install
-
-To cleanup:
-
-mvn clean
+Task: 4.The Basic example of JavaSim is implemented so that all needed data collection is written inside the processes etc. For more complex models this may become tedious. Create a monitoring process that collects data and reports it as needed. That is, create a SimulationProcess Monitor that runs in eternal loop of holding itself for given sampling interval and then collecting a sample of the data it needs from monitored processes (using their methods).  See examples for lecture 3. Use this class to sample average queue lengths and average utilization for machine of your choice. (You can do this on top of any of JavaSim models treated here - even the Basic model if you can not manage with its above modifications).
