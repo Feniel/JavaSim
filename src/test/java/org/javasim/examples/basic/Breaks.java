@@ -46,22 +46,22 @@ public class Breaks extends SimulationProcess
 
                 hold(OperativeTime.getNumber());
 
-                Coordinator.O.broken();
-                Coordinator.O.cancel();
+                MachineShop.M.broken();
+                MachineShop.M.cancel();
 
-                if (!Coordinator.JobQ.isEmpty())
+                if (!MachineShop.JobQ.isEmpty())
                     interrupted_service = true;
 
                 hold(failedTime);
 
-                Coordinator.MachineFailedTime += failedTime;
-                Coordinator.O.fixed();
+                MachineShop.MachineFailedTime += failedTime;
+                MachineShop.M.fixed();
 
                 if (interrupted_service)
-                    Coordinator.O.activateAt(Coordinator.O.serviceTime()
+                    MachineShop.M.activateAt(MachineShop.M.serviceTime()
                             + currentTime());
                 else
-                    Coordinator.O.activate();
+                    MachineShop.M.activate();
 
                 interrupted_service = false;
             }

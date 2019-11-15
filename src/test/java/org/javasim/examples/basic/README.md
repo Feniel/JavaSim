@@ -18,7 +18,7 @@ Machine - This is the Machine on which the service resides. It obtains
 	  execute them. The machine can fail and so the response time for
 	  jobs is not guaranteed to be the same.
 
-Coordinator - This is the main part of the simulation which starts the
+MachineShop - This is the main part of the simulation which starts the
 	      various processes (Scheduler, Arrivals, Machine, Job)
 	      involved. It also prints out statistics for the response time
 	      for the jobs.

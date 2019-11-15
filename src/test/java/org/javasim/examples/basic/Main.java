@@ -37,7 +37,7 @@ public class Main
                 isBreaks = true;
         }
 
-        Coordinator m = new Coordinator(isBreaks);
+        MachineShop m = new MachineShop(isBreaks);
 
         m.await();
 

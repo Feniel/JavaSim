@@ -45,13 +45,13 @@ public class Machine extends SimulationProcess
         {
             working = true;
 
-            while (!Coordinator.JobQ.isEmpty())
+            while (!MachineShop.JobQ.isEmpty())
             {
                 ActiveStart = currentTime();
-                Coordinator.CheckFreq++;
+                MachineShop.CheckFreq++;
 
-                Coordinator.JobsInQueue += Coordinator.JobQ.queueSize();
-                J = Coordinator.JobQ.dequeue();
+                MachineShop.JobsInQueue += MachineShop.JobQ.queueSize();
+                J = MachineShop.JobQ.dequeue();
 
                 try
                 {
@@ -65,8 +65,8 @@ public class Machine extends SimulationProcess
                 }
 
                 ActiveEnd = currentTime();
-                Coordinator.MachineActiveTime += ActiveEnd - ActiveStart;
-                Coordinator.ProcessedJobs++;
+                MachineShop.MachineActiveTime += ActiveEnd - ActiveStart;
+                MachineShop.ProcessedJobs++;
 
                 /*
                  * Introduce this new method because we usually rely upon the

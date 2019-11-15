@@ -33,16 +33,16 @@ public class Job
         ResponseTime = 0.0;
         ArrivalTime = Scheduler.currentTime();
 
-        empty = Coordinator.JobQ.isEmpty();
-        Coordinator.JobQ.enqueue(this);
-        Coordinator.TotalJobs++;
+        empty = MachineShop.JobQ.isEmpty();
+        MachineShop.JobQ.enqueue(this);
+        MachineShop.TotalJobs++;
 
-        if (empty && !Coordinator.O.processing()
-                && Coordinator.O.isOperational())
+        if (empty && !MachineShop.M.processing()
+                && MachineShop.M.isOperational())
         {
             try
             {
-                Coordinator.O.activate();
+                MachineShop.M.activate();
             }
             catch (SimulationException e)
             {
@@ -56,12 +56,10 @@ public class Job
     public void finished ()
     {
         ResponseTime = Scheduler.currentTime() - ArrivalTime;
-        Coordinator.TotalResponseTime += ResponseTime;
+        MachineShop.TotalResponseTime += ResponseTime;
     }
 
     private double ResponseTime;
 
     private double ArrivalTime;
-
-    double OperationTime;
 }
