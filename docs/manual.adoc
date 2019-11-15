@@ -725,25 +725,25 @@ public class Processor extends SimulationEntity
                 {
                     timedWait(sTime.getNumber());
 
-                    if (!Coordinator.JobQ.isEmpty())
+                    if (!MachineShop.JobQ.isEmpty())
                     {
-                        j = Coordinator.JobQ.dequeue();
-                        Coordinator.ProcessedJobs++;
+                        j = MachineShop.JobQ.dequeue();
+                        MachineShop.ProcessedJobs++;
                     }
                 }
                 catch (InterruptedException e)
                 {
-                    if (Coordinator.SignalQ.isEmpty())
+                    if (MachineShop.SignalQ.isEmpty())
                         System.out
                                 .println("Error - signal caught, but no message given!");
                     else
                     {
-                        j = Coordinator.SignalQ.dequeue();
-                        Coordinator.SignalledJobs++;
+                        j = MachineShop.SignalQ.dequeue();
+                        MachineShop.SignalledJobs++;
                     }
                 }
 
-                if (Coordinator.SignalledJobs == 2)
+                if (MachineShop.SignalledJobs == 2)
                     terminate();
             }
             catch (SimulationException e)
