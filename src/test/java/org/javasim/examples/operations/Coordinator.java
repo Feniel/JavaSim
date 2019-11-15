@@ -28,6 +28,7 @@ import org.javasim.SimulationProcess;
 import java.util.ArrayList;
 
 public class Coordinator extends SimulationProcess {
+
     public Coordinator(boolean isBreaks) {
         useBreaks = isBreaks;
 
@@ -50,6 +51,7 @@ public class Coordinator extends SimulationProcess {
             Coordinator.O.activate();
             Coordinator.P.activate();
             Coordinator.R.activate();
+            Job J = new Job();
 
             // activate Arrival
             System.out.println("Coordinator-" + Thread.currentThread().getName() + ": ACTIVATING an Arrivals");
@@ -68,6 +70,7 @@ public class Coordinator extends SimulationProcess {
             System.out.println("Looping until ProcessedJobs < 10");
             System.out.println("==================================================");
 
+            // why this while loop ?
             while (Coordinator.ProcessedJobs < 10)
                 hold(1000);
 

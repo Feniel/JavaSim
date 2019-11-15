@@ -18,7 +18,7 @@
  * (C) 1990-2008,
  */
 
-package org.javasim.examples.basic;
+package org.javasim.examples.multipleQueueTest;
 
 import org.javasim.RestartException;
 import org.javasim.Simulation;
@@ -44,18 +44,12 @@ public class MachineShop extends SimulationProcess
     {
         try
         {
-            Breaks B = null;
             Arrivals A = new Arrivals(8);
-            MachineShop.M = new Machine(8);
+            MachineShop.M1 = new Machine(8);
+            MachineShop.M2 = new Machine(8);
             Job J = new Job();
 
             A.activate();
-
-            if (useBreaks)
-            {
-                B = new Breaks();
-                B.activate();
-            }
 
             Simulation.start();
 
@@ -80,10 +74,8 @@ public class MachineShop extends SimulationProcess
             Simulation.stop();
 
             A.terminate();
-            MachineShop.M.terminate();
-
-            if (useBreaks)
-                B.terminate();
+            MachineShop.M1.terminate();
+            MachineShop.M2.terminate();
 
             SimulationProcess.mainResume();
         }
@@ -101,7 +93,9 @@ public class MachineShop extends SimulationProcess
         SimulationProcess.mainSuspend();
     }
 
-    public static Machine M = null;
+    public static Machine M1 = null;
+
+    public static Machine M2 = null;
 
     public static Queue JobQ = new Queue();
 
