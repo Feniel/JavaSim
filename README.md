@@ -1,30 +1,5 @@
-JavaSIM is an object-oriented simulation package based upon C++SIM and has been around since 1997. It provides discrete event process-based simulation similar to SIMULA's simulation class and libraries. A complete list of the capabilities provided follows:
+Consider the situation of the previous exercises. That is, P preparation rooms, one operating theatre and R recovery rooms with no intermediate buffer capacity between them. Assume still only one patient stream with exponentially distributed arrival and service times (means: interarrival time 25, preparation time 40, operation time 20, recovery time 40). (It is easy to infer that ideally we should have 80% utilization of operation room and on average less than two patients in preparation and recovery). For simplicity, we assume continuous operation. We shall monitor the building up of a queue before preparation, idle capacity of the preparation and the rate of blocking of operations.
 
-- The core of the system gives SIMULA-like simulation routines, random number generators, queueing algorithms and in the C++ original there are thread package interfaces, though for Java that's not necessary.
-- Entity and set manipulation facilities similar to SIMSET.
-- Classes allow "non-causal" events, such as interrupts, to be handled.
-- Various routines for gathering statistics, such as histogram and variance classes.
+Run 20 independent samples of 1000 time units. (It may be wise to foresee the needs of all the problems at once to not have to rerun samples).
 
-The system also comes with complete examples and tests which illustrate many of the issues raised in using the simulation package.
-
-Over the years C++SIM and JavaSim have been used by many commercial and academic organisations.
-
-Prior to 2007 both C++SIM and JavaSim were freely available in source and binary from Newcastle University, under the University's own licence. However, in late 2007 Newcastle University decided that everything could be released into open source under LGPL.
-
-You can find details of the releases in the https://github.com/nmcl/JavaSim/releases section as well as binary downloads for some releases.
-
-In 2015 the code was moved from Codehaus to github. All JIRAs from there were also recreated as github issues.
-
-----
-
-To build:
-
-mvn compile
-
-Run tests and create installation:
-
-mvn install
-
-To cleanup:
-
-mvn clean
+1.  Observe the length of a queue before preparation room, the length of idle queue for preparation rooms and the probability of operation being in waiting state (blocked). You can do this by sampling the variables with regular rate. Compute the point estimates (means), and interval estimates (confidence intervals for means) for 95% confidence level. Do this for three different configurations (3 preparation rooms, 4 recoveries: 3p 5r, 4p 5r).
