@@ -2,10 +2,12 @@ package org.javasim.examples.operations;
 
 import org.javasim.*;
 
-public class RecoveryRoom extends SimulationProcess
+
+public class PreparationRoom extends SimulationProcess
 {
     
-public RecoveryRoom ()
+
+public PreparationRoom ()
     {
 	working = false;
 	J = null;
@@ -13,29 +15,27 @@ public RecoveryRoom ()
 
 public void run ()
     {
-
 	for (;;)
 	{
-	    working = true;
-	    while (!Clinic.RecQ.isEmpty()){
-	    	J = Clinic.RecQ.remove();		
+	    if (!Clinic.EntQ.isEmpty()) {
+		    working = true;
+	    	J = Clinic.EntQ.remove();
 	    	try {
-	    		hold(J.RecoveryTime());
+	    		hold(J.PreparationTime());
+//	    		Clinic.JobQ.add(J);
+	    		if (!Clinic.M.Processing()) {
+	    			Clinic.M.activate();
+	    		}
+		    	working = false;
+		    	Clinic.WaitQ.add(this);
 	    	}
 	    	catch (SimulationException e){}
-	    	catch (RestartException e){}		
-	    	J.finished(); // last process to touch J. So time to read J:s internal memory
+	    	catch (RestartException e){}
+	  
 	    }
-	    working = false;
-	    Clinic.IRQ.add(this);
 	    try {
-	    	if (!Clinic.M.IsOperational()) {
-	    		Clinic.M.Release();
-	    		Clinic.M.activate();
-	    	}
 	    	passivate();
 	    }
-		catch (SimulationException e){}
 	    catch (RestartException e){}
 	}
     }
@@ -59,10 +59,15 @@ public boolean Processing ()
     {
 	return working;
     }
-    
-
+public Patient MyPatient()
+	{
+	temp =J;
+	J=null;
+	return temp;
+	}
 private boolean operational;
 private boolean working;
 private Patient J;
+private Patient temp;
 
 };
