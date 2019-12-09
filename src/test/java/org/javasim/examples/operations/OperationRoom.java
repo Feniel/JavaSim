@@ -1,5 +1,8 @@
 package org.javasim.examples.operations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.javasim.*;
 
 
@@ -17,7 +20,8 @@ public class OperationRoom extends SimulationProcess
     public void run ()
     {
         double ActiveStart, ActiveEnd;
-
+       
+    	
         for (;;)
         {
             working = true;
@@ -38,6 +42,10 @@ public class OperationRoom extends SimulationProcess
                     Clinic.MachineActiveTime += ActiveEnd - ActiveStart;
                     Clinic.ProcessedJobs++;
                     Clinic.RecQ.add(J);
+                    
+                    Clinic.listPrep.add(Clinic.WaitQ.size());
+                    Clinic.listIdleForPrep.add(Clinic.IWQ.size());
+                    
                     if (!Clinic.IRQ.isEmpty()) {
                         RecoveryRoom RR = (RecoveryRoom)Clinic.IRQ.remove();
                         RR.activate();
@@ -56,6 +64,9 @@ public class OperationRoom extends SimulationProcess
             }
             catch (RestartException e){}
         }
+        
+        
+        
     }
 
     public void Block ()
