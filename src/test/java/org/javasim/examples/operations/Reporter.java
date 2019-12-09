@@ -67,7 +67,7 @@ public class Reporter extends SimulationProcess {
 		double higher = meanOfListPre + 1.96 * std_prep;
 
 
-//		System.out.println("Average for idle Que "+  (Double)(z/Clinic.listIdleForPrep.size()));
+//		System.out.println("Average for idle Que "+  (Double)(z/Clinic.listIdleForPrep.size()) * 100);
 //		System.out.println("Patients directly to preparation = "+a +"\n");
 //
 //		System.out.println("Average for Preparation Que = "+ meanOfListPre );
@@ -76,10 +76,10 @@ public class Reporter extends SimulationProcess {
 //		System.out.println("Lower 95% confidence limit = " + lower);
 //		System.out.println("Higher 95% confidence limit = " + higher +"\n");
 
-		System.out
-				.println(entryqueue + "\t" + idlewaitqueue + "\t" + blockfrq + "\t" + recovery_busy_count + "\t" + operfrq +"\t"+
-						Math.round((1-(x/ Clinic.listPrep.size()))*100.0)/100.0 + "\t"+ meanOfListPre + "\t"+ variance + "\t"+Math.sqrt(variance)
-						+ "\t" +lower + "\t"+higher );
+		//System.out
+		//		.println(entryqueue + "\t" + idlewaitqueue + "\t" + blockfrq + "\t" + recovery_busy_count + "\t" + operfrq +"\t"+
+		//				Math.round((1-(x/ Clinic.listPrep.size()))*100.0)/100.0 + "\t"+ meanOfListPre + "\t"+ variance + "\t"+Math.sqrt(variance)
+		//				+ "\t" +lower + "\t"+higher );
 	}
 
 	public void reset() {

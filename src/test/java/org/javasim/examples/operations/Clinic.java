@@ -51,10 +51,11 @@ public void run ()
 	    System.out.println("Total number of jobs present "+TotalJobs);
 	    System.out.println("Total response time of "+TotalResponseTime);
 	    System.out.println("Average response time = "+(TotalResponseTime / ProcessedJobs));
-	    System.out.println("Probability that machine is working = "+(MachineActiveTime  / currentTime()));
+		System.out.println("Total number of jobs processed "+ProcessedJobs);
 	    System.out.println("Average number of jobs present = "+(JobsInQueue / CheckFreq));
-	    System.out.println("Total number of jobs processed "+ProcessedJobs);
-	    System.out.println(" ");
+		System.out.println("Probability that machine is working = "+(MachineActiveTime  / currentTime()));
+		System.out.println(" ");
+
 	    
 	    
 	    // Preparation Que Length
@@ -75,9 +76,9 @@ public void run ()
 	    	variance += (((Integer)this.listPrep.get(i) - meanOfListPre) * ((Integer)this.listPrep.get(i) - meanOfListPre)) / this.listPrep.size();
 	    }
 	    double std_prep = Math.sqrt(variance);
-	    System.out.println("Probability of operation being in waiting state  " + Math.round((1-(x/ this.listPrep.size()))*100.0)/100.0);
-	    System.out.println("Patients without wait time: "+x);
-	    System.out.println(" ");
+	    //System.out.println("Probability of operation being in waiting state  " + Math.round((1-(x/ this.listPrep.size()))*100.0)/100.0);
+	    //System.out.println("Patients without wait time: "+x);
+	    //System.out.println(" ");
 	    
 	    // Idle Que length
 	    double z = 0; //sum
@@ -93,14 +94,15 @@ public void run ()
 	    double higher = meanOfListPre + 1.96 * std_prep;
 
 
-		System.out.println("Average for idle Que "+  (Double)(z/this.listIdleForPrep.size()));
-		System.out.println("Patients directly to preparation = "+a +"\n");
+		//System.out.println("Average for idle Que "+  (Double)(z/this.listIdleForPrep.size()));
+		//System.out.println("Patients directly to preparation = "+a +"\n");
 
 		System.out.println("Average for Preparation Que = "+ meanOfListPre );
-		System.out.println("Variance of list preparation = " + variance );
-		System.out.println("Standard deviation = " + Math.sqrt(variance));
-	    System.out.println("Lower 95% confidence limit = " + lower);
-	    System.out.println("Higher 95% confidence limit = " + higher +"\n");
+		System.out.println("Operation is waiting = "+ (1 - (MachineActiveTime  / currentTime()) ));
+		//System.out.println("Variance of list preparation = " + variance );
+		//System.out.println("Standard deviation = " + Math.sqrt(variance));
+	    //System.out.println("Lower 95% confidence limit = " + lower);
+	    //System.out.println("Higher 95% confidence limit = " + higher +"\n");
 	    
 	    Simulation.stop();
 
